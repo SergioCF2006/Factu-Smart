@@ -31,7 +31,6 @@ fun SubirFacturasScreen(
     onBuscar: () -> Unit,
     onCerrarSesion: () -> Unit
 ) {
-
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
@@ -49,7 +48,6 @@ fun SubirFacturasScreen(
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenMultipleDocuments(),
-
         onResult = { uris ->
 
             if (uris.isNotEmpty()) {
@@ -112,13 +110,9 @@ fun SubirFacturasScreen(
                     isUploading = false
 
                     Toast.makeText(
-
                         context,
-
                         "Finalizado: $exitos éxito, $errores error",
-
                         Toast.LENGTH_LONG
-
                     ).show()
 
                 }
@@ -138,20 +132,13 @@ fun SubirFacturasScreen(
             ModalDrawerSheet {
 
                 Spacer(
-                    modifier =
-                        Modifier.height(20.dp)
+                    modifier = Modifier.height(20.dp)
                 )
 
                 Text(
-
                     "Factu-Smart",
-
-                    modifier =
-                        Modifier.padding(16.dp),
-
-                    fontWeight =
-                        FontWeight.Bold
-
+                    modifier = Modifier.padding(16.dp),
+                    fontWeight = FontWeight.Bold
                 )
 
                 HorizontalDivider()
@@ -160,9 +147,7 @@ fun SubirFacturasScreen(
 
                     label = {
 
-                        Text(
-                            "Cerrar sesión"
-                        )
+                        Text("Cerrar sesión")
 
                     },
 
@@ -382,9 +367,11 @@ fun SubirFacturasScreen(
                     onClick = {
 
                         launcher.launch(
+
                             arrayOf(
                                 "application/pdf"
                             )
+
                         )
 
                     },
@@ -427,5 +414,4 @@ fun SubirFacturasScreen(
         }
 
     }
-
 }

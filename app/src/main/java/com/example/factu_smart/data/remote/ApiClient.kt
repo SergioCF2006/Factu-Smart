@@ -11,7 +11,6 @@ object ClienteApi {
 
     val servicio: ServicioApi by lazy {
 
-        // Agregamos un interceptor para ver los errores en el Logcat
         val logging = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -23,12 +22,11 @@ object ClienteApi {
                     .addHeader("apikey", "sb_publishable_bVh2qxGK10uxcV_XRPWdsg_KK_hQAc0")
                     .addHeader("Authorization", "Bearer sb_publishable_bVh2qxGK10uxcV_XRPWdsg_KK_hQAc0")
                     .addHeader("Content-Type", "application/json")
-                    .addHeader("Prefer", "return=minimal") // Ayuda a evitar errores de parsing en Supabase
+                    .addHeader("Prefer", "return=minimal")
                     .build()
                 cadena.proceed(request)
             }
             .build()
-
         Retrofit.Builder()
             .baseUrl(URL_BASE)
             .client(clienteHttp)
