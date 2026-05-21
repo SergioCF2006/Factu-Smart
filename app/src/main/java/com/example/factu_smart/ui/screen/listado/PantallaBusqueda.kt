@@ -70,12 +70,12 @@ fun PantallaBusqueda(
                 ignoreCase = true
             ) == true ||
 
-                    factura.nombre_emisor?.contains(
+                    factura.nombre_receptor?.contains(
                         searchQuery,
                         ignoreCase = true
                     ) == true ||
 
-                    factura.nit_emisor?.contains(
+                    factura.nit_receptor?.contains(
                         searchQuery,
                         ignoreCase = true
                     ) == true ||
@@ -321,9 +321,7 @@ fun PantallaBusqueda(
                                         modifier = Modifier.weight(1f)
                                     ) {
                                         Text(
-                                            factura.nombre_emisor
-                                                ?: "CLIENTE",
-
+                                            factura.nombre_receptor ?: "CLIENTE",
                                             fontWeight = FontWeight.Bold,
                                             fontSize = 18.sp
                                         )
@@ -331,7 +329,7 @@ fun PantallaBusqueda(
                                             modifier = Modifier.height(4.dp)
                                         )
                                         Text(
-                                            "NIT: ${factura.nit_emisor ?: "Sin NIT"}",
+                                            "NIT: ${factura.nit_receptor ?: "Sin NIT"}",
                                             color = Color.Gray,
                                             fontSize = 14.sp
                                         )

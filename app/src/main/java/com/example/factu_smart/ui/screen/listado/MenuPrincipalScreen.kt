@@ -98,16 +98,20 @@ fun MenuPrincipalScreen(
     val clienteFrecuente =
         listaFacturas
             .groupBy {
-                it.nombre_emisor
-                    ?: "SIN NOMBRE"
+                it.nit_receptor
+                    ?: "SIN NIT"
             }
             .maxByOrNull {
                 it.value.size
             }
 
     val nombreCliente =
-        clienteFrecuente?.key
+        clienteFrecuente
+            ?.value
+            ?.firstOrNull()
+            ?.nombre_receptor
             ?: "SIN DATOS"
+
     val totalCliente =
         clienteFrecuente
             ?.value
@@ -115,11 +119,13 @@ fun MenuPrincipalScreen(
                 it.monto_total ?: 0.0
             }
             ?: 0.0
+
     val totalFacturasCliente =
         clienteFrecuente
             ?.value
             ?.size
             ?: 0
+
     val actividadMensual =
         (1..12).map { mes ->
             listaFacturas
