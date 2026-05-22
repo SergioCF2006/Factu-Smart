@@ -65,17 +65,17 @@ fun PantallaBusqueda(
     val facturasFiltradas =
         listaFacturas.filter { factura ->
 
-            factura.descripcion?.contains(
+            factura.nombre_receptor?.contains(
                 searchQuery,
                 ignoreCase = true
             ) == true ||
 
-                    factura.nombre_receptor?.contains(
+                    factura.nit_receptor?.contains(
                         searchQuery,
                         ignoreCase = true
                     ) == true ||
 
-                    factura.nit_receptor?.contains(
+                    factura.fecha_emision?.contains(
                         searchQuery,
                         ignoreCase = true
                     ) == true ||
@@ -84,7 +84,7 @@ fun PantallaBusqueda(
                         ?.toString()
                         ?.contains(searchQuery) == true ||
 
-                    factura.fecha_emision?.contains(
+                    factura.serie?.contains(
                         searchQuery,
                         ignoreCase = true
                     ) == true
@@ -335,13 +335,13 @@ fun PantallaBusqueda(
                                         )
 
                                         Text(
-                                            "Factura: ${factura.descripcion ?: "Sin descripción"}",
+                                            "Fecha: ${factura.fecha_emision ?: "Sin fecha"}",
                                             color = Color.Gray,
                                             fontSize = 14.sp
                                         )
 
                                         Text(
-                                            "Autorización: ${factura.numero_autorizacion ?: "No disponible"}",
+                                            "Serie: ${factura.serie ?: "Sin serie"}",
                                             color = Color.Gray,
                                             fontSize = 14.sp
                                         )
