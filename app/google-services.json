@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "125866495628",
+    "project_id": "factu-smart",
+    "storage_bucket": "factu-smart.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125866495628:android:222223217b3d298556f5a9",
+        "android_client_info": {
+          "package_name": "com.example.factu_smart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125866495628-tafkfsdpl1g8mh4ose3c93en0bcaec6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.factu_smart",
+            "certificate_hash": "56bd90d1fda75c1b19d1f782eb3bfed4f2a4e818"
+          }
+        },
+        {
+          "client_id": "125866495628-q48hj370fifuchns68qg2ul13avn192m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4VDDJIEZeCGyXewkS011H0-zUmuEr9oU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125866495628-q48hj370fifuchns68qg2ul13avn192m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
