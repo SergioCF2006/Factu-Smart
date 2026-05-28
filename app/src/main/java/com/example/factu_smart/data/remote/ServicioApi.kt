@@ -11,6 +11,7 @@ interface ServicioApi {
     suspend fun obtenerFacturas(): List<Factura>
 
     @POST("facturas")
+<<<<<<< HEAD
     suspend fun guardarFactura(
         @Body factura: Factura
     ): Response<Unit>
@@ -20,6 +21,9 @@ interface ServicioApi {
         @Query("serie") serie: String,
         @Query("numero_documento") numero: String
     ): List<Factura>
+=======
+    suspend fun guardarFactura(@Body factura: Factura): Response<Unit>
+>>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 
     @Headers("Prefer: resolution=merge-duplicates")
     @POST("usuarios")

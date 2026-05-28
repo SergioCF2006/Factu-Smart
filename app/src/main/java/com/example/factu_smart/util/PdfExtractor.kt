@@ -212,47 +212,34 @@ object PdfExtractor {
                     .find(text)
                     ?.groupValues?.getOrNull(1)
 
-            Factura(
 
-                nit_emisor =
-                    nitEmisor,
+            return Factura(
 
-                nombre_emisor =
-                    nombreEmisor,
+                nit_emisor = nitEmisor,
 
-                nit_receptor =
-                    nitReceptor,
+                nombre_emisor = nombreEmisor,
 
-                nombre_receptor =
-                    nombreReceptor,
+                nit_receptor = nitReceptor,
 
-                numero_autorizacion =
-                    autorizacion,
+                nombre_receptor = nombreReceptor,
 
-                serie =
-                    serie,
+                numero_autorizacion = autorizacion,
 
-                numero_documento =
-                    numero,
+                serie = serie,
 
-                fecha_emision =
-                    fechaBD,
+                numero_documento = numero,
 
-                monto_total =
-                    String.format(
-                        "%.2f",
-                        montoTotal
-                    ).toDouble(),
+                fecha_emision = fechaBD,
 
-                monto_iva =
-                    String.format(
-                        "%.2f",
-                        montoTotal * 0.12
-                    ).toDouble(),
+                monto_total = montoTotal,
 
-                descripcion =
-                    "Factura FEL"
+                monto_iva = montoTotal * 0.12,
+
+                descripcion = "Factura FEL"
+
             )
+
+
 
         } catch (e: Exception) {
 

@@ -40,7 +40,11 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD
     // Google Authenticacion
+=======
+    // Google Auth
+>>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
     implementation(libs.play.services.auth)
 
     // Retrofit & OkHttp
@@ -60,9 +64,13 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
 
+<<<<<<< HEAD
     implementation("com.tom-roush:pdfbox-android:2.0.27.0")
     implementation("androidx.core:core-ktx:1.12.0")
 
+=======
+    // Usando tu configuración manual que dio mejores resultados
+>>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
     implementation("com.tom-roush:pdfbox-android:2.0.27.0")
 
     // Testing

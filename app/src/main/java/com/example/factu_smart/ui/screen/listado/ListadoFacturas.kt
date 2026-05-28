@@ -18,16 +18,23 @@ import androidx.compose.ui.unit.dp
 import com.example.factu_smart.data.model.Factura
 import com.example.factu_smart.data.remote.ClienteApi
 import kotlinx.coroutines.launch
+<<<<<<< HEAD
 import androidx.compose.foundation.clickable
 
+=======
+>>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 
 @Composable
 fun PantallaListado(
     onInicio: () -> Unit,
     onIngreso: () -> Unit,
     onBuscar: () -> Unit,
+<<<<<<< HEAD
     onCerrarSesion: () -> Unit,
     onFacturaClick: (Factura) -> Unit
+=======
+    onCerrarSesion: () -> Unit
+>>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 ) {
 
     var lista by remember {
@@ -144,6 +151,7 @@ fun PantallaListado(
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
+<<<<<<< HEAD
                                 .padding(vertical = 8.dp)
                                 .clickable {
 
@@ -157,6 +165,12 @@ fun PantallaListado(
                                 containerColor = Color.White
                             )
 
+=======
+                                .padding(vertical = 8.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color.White
+                            )
+>>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
                         ) {
 
                             Column(
@@ -184,7 +198,11 @@ fun PantallaListado(
             }
         }
     }
+<<<<<<< HEAD
 }
 
 
 
+=======
+}
+>>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
