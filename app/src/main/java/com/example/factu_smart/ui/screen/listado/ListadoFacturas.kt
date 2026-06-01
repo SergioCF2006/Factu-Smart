@@ -1,6 +1,7 @@
 package com.example.factu_smart.ui.screen.listado
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,33 +19,21 @@ import androidx.compose.ui.unit.dp
 import com.example.factu_smart.data.model.Factura
 import com.example.factu_smart.data.remote.ClienteApi
 import kotlinx.coroutines.launch
-<<<<<<< HEAD
-import androidx.compose.foundation.clickable
-
-=======
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 
 @Composable
 fun PantallaListado(
     onInicio: () -> Unit,
     onIngreso: () -> Unit,
     onBuscar: () -> Unit,
-<<<<<<< HEAD
     onCerrarSesion: () -> Unit,
     onFacturaClick: (Factura) -> Unit
-=======
-    onCerrarSesion: () -> Unit
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 ) {
 
     var lista by remember {
         mutableStateOf<List<Factura>>(emptyList())
     }
 
-    val drawerState = rememberDrawerState(
-        initialValue = DrawerValue.Closed
-    )
-
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
@@ -60,12 +49,10 @@ fun PantallaListado(
         drawerContent = {
             ModalDrawerSheet {
 
-                Spacer(
-                    modifier = Modifier.height(20.dp)
-                )
+                Spacer(Modifier.height(20.dp))
 
                 Text(
-                    text = "Factu-Smart",
+                    "Factu-Smart",
                     modifier = Modifier.padding(16.dp),
                     fontWeight = FontWeight.Bold
                 )
@@ -73,18 +60,11 @@ fun PantallaListado(
                 HorizontalDivider()
 
                 NavigationDrawerItem(
-                    label = {
-                        Text("Cerrar sesión")
-                    },
+                    label = { Text("Cerrar sesión") },
                     selected = false,
-                    onClick = {
-                        onCerrarSesion()
-                    },
+                    onClick = { onCerrarSesion() },
                     icon = {
-                        Icon(
-                            Icons.Default.ExitToApp,
-                            contentDescription = null
-                        )
+                        Icon(Icons.Default.ExitToApp, contentDescription = null)
                     }
                 )
             }
@@ -116,21 +96,13 @@ fun PantallaListado(
 
                     IconButton(
                         onClick = {
-                            scope.launch {
-                                drawerState.open()
-                            }
+                            scope.launch { drawerState.open() }
                         }
                     ) {
-
-                        Icon(
-                            Icons.Default.Menu,
-                            contentDescription = "Menu"
-                        )
+                        Icon(Icons.Default.Menu, contentDescription = null)
                     }
 
-                    Spacer(
-                        modifier = Modifier.width(8.dp)
-                    )
+                    Spacer(Modifier.width(8.dp))
 
                     Text(
                         "Facturas Guardadas",
@@ -138,39 +110,22 @@ fun PantallaListado(
                     )
                 }
 
-                Spacer(
-                    modifier = Modifier.height(10.dp)
-                )
+                Spacer(Modifier.height(10.dp))
 
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize()
-                ) {
+                LazyColumn {
 
                     items(lista) { factura ->
 
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-<<<<<<< HEAD
                                 .padding(vertical = 8.dp)
                                 .clickable {
-
-                                    println("TOQUE FACTURA")
-
                                     onFacturaClick(factura)
-
                                 },
-
                             colors = CardDefaults.cardColors(
                                 containerColor = Color.White
                             )
-
-=======
-                                .padding(vertical = 8.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = Color.White
-                            )
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
                         ) {
 
                             Column(
@@ -198,11 +153,4 @@ fun PantallaListado(
             }
         }
     }
-<<<<<<< HEAD
 }
-
-
-
-=======
-}
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd

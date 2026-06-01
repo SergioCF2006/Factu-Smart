@@ -2,8 +2,10 @@ package com.example.factu_smart.ui.screen.listado
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
@@ -13,12 +15,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 
 import com.example.factu_smart.data.model.Factura
@@ -29,7 +29,9 @@ import com.tom_roush.pdfbox.pdmodel.PDPage
 import com.tom_roush.pdfbox.pdmodel.PDPageContentStream
 import com.tom_roush.pdfbox.pdmodel.common.PDRectangle
 import com.tom_roush.pdfbox.pdmodel.graphics.image.JPEGFactory
+
 import java.io.ByteArrayOutputStream
+
 
 @Composable
 fun PantallaDetalleFactura(
@@ -40,7 +42,6 @@ fun PantallaDetalleFactura(
 ) {
 
     val context = LocalContext.current
-    val view = LocalView.current
 
     PDFBoxResourceLoader.init(context)
 
@@ -144,201 +145,55 @@ fun PantallaDetalleFactura(
                     val ruta = factura.ruta_pdf
 
                     if (ruta.isNullOrEmpty()) {
-                        Toast.makeText(context, "No hay PDF guardado", Toast.LENGTH_SHORT).show()
+
+                        Toast.makeText(
+                            context,
+                            "No hay PDF guardado",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                         return@Button
                     }
 
-                    val file = java.io.File(ruta)
+                    val uri = Uri.parse(ruta)
 
-                    if (!file.exists()) {
-                        Toast.makeText(context, "Archivo no encontrado", Toast.LENGTH_SHORT).show()
-                        return@Button
-                    }
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
 
-                    val uri = androidx.core.content.FileProvider.getUriForFile(
-                        context,
-                        context.packageName + ".provider",
-                        file
-                    )
+                        setDataAndType(
+                            uri,
+                            "application/pdf"
+                        )
 
-                    val intent = android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
-                        setDataAndType(uri, "application/pdf")
-                        addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        addFlags(
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        )
+
                     }
 
                     context.startActivity(
-                        android.content.Intent.createChooser(intent, "Abrir PDF")
+                        Intent.createChooser(
+                            intent,
+                            "Abrir PDF"
+                        )
                     )
 
                 } catch (e: Exception) {
+
                     e.printStackTrace()
-                    Toast.makeText(context, "Error al abrir PDF", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(
+                        context,
+                        "Error al abrir PDF",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             }
         ) {
+
             Text("VER PDF ORIGINAL")
-        }
-
-    }
-
-}
-
-fun generarPDF(
-
-    context: Context,
-    view: android.view.View
-
-) {
-
-    try {
-
-        val bitmap = Bitmap.createBitmap(
-
-            view.width,
-            view.height,
-
-            Bitmap.Config.ARGB_8888
-
-        )
-
-        val canvas = Canvas(bitmap)
-
-        view.draw(canvas)
-
-        val documento = PDDocument()
-
-        val pagina = PDPage(
-
-            PDRectangle.A4
-
-        )
-
-        documento.addPage(
-
-            pagina
-
-        )
-
-        val streamBitmap =
-
-            ByteArrayOutputStream()
-
-        bitmap.compress(
-
-            Bitmap.CompressFormat.JPEG,
-
-            100,
-
-            streamBitmap
-
-        )
-
-        val imagen =
-
-            JPEGFactory.createFromStream(
-
-                documento,
-
-                java.io.ByteArrayInputStream(
-
-                    streamBitmap.toByteArray()
-
-                )
-
-            )
-
-        val contenido =
-
-            PDPageContentStream(
-
-                documento,
-
-                pagina
-
-            )
-
-        contenido.drawImage(
-
-            imagen,
-
-            20f,
-            300f,
-
-            550f,
-            450f
-
-        )
-
-        contenido.close()
-
-        val nombre =
-
-            "Factura_${
-                System.currentTimeMillis()
-            }.pdf"
-
-        val values = ContentValues()
-
-        values.put(
-
-            MediaStore.MediaColumns.DISPLAY_NAME,
-
-            nombre
-
-        )
-
-        values.put(
-
-            MediaStore.MediaColumns.MIME_TYPE,
-
-            "application/pdf"
-
-        )
-
-        values.put(
-
-            MediaStore.MediaColumns.RELATIVE_PATH,
-
-            Environment.DIRECTORY_DOWNLOADS
-
-        )
-
-        val uri =
-
-            context.contentResolver.insert(
-
-                MediaStore.Files
-                    .getContentUri(
-                        "external"
-                    ),
-
-                values
-
-            )
-
-        uri?.let {
-
-            context
-                .contentResolver
-                .openOutputStream(it)
-                ?.use { output ->
-
-                    documento.save(output)
-
-                }
 
         }
-
-        documento.close()
-
-    } catch (
-
-        e: Exception
-
-    ) {
-
-        e.printStackTrace()
 
     }
 

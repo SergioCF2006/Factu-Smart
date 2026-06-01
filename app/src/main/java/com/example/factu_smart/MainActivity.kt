@@ -1,10 +1,7 @@
 package com.example.factu_smart
 
 import android.content.Intent
-<<<<<<< HEAD
 import android.os.Build
-=======
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -13,29 +10,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-<<<<<<< HEAD
 import androidx.annotation.RequiresApi
-=======
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 import androidx.compose.runtime.*
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-
-<<<<<<< HEAD
 import com.example.factu_smart.data.model.Factura
+
 import com.example.factu_smart.data.model.Usuario
 import com.example.factu_smart.data.remote.ClienteApi
-import com.example.factu_smart.ui.screen.listado.PantallaDetalleFactura
-=======
-import com.example.factu_smart.data.remote.ClienteApi
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
-import com.example.factu_smart.ui.screen.listado.LoginScreen
-import com.example.factu_smart.ui.screen.listado.MenuPrincipalScreen
-import com.example.factu_smart.ui.screen.listado.SubirFacturasScreen
-import com.example.factu_smart.ui.screen.listado.PantallaListado
-import com.example.factu_smart.ui.screen.listado.PantallaBusqueda
-import com.example.factu_smart.ui.screen.listado.RegisterScreen
+import com.example.factu_smart.ui.screen.listado.*
 
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
@@ -46,12 +30,8 @@ enum class Screen {
     SUBIR_FACTURAS,
     LISTADO,
     BUSQUEDA,
-<<<<<<< HEAD
-    REGISTER,
-    DETALLE_FACTURA
-=======
+    DETALLE_FACTURA,
     REGISTER
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 }
 
 class MainActivity : ComponentActivity() {
@@ -61,21 +41,15 @@ class MainActivity : ComponentActivity() {
 
     var currentScreen by mutableStateOf(Screen.LOGIN)
 
-<<<<<<< HEAD
     var facturaSeleccionada by mutableStateOf<Factura?>(null)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-
-=======
-    override fun onCreate(savedInstanceState: Bundle?) {
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-<<<<<<< HEAD
         val opciones = GoogleSignInOptions.Builder(
             GoogleSignInOptions.DEFAULT_SIGN_IN
         )
@@ -85,109 +59,41 @@ class MainActivity : ComponentActivity() {
             )
             .build()
 
-        googleClient = GoogleSignIn.getClient(
-            this,
-            opciones
-        )
-
-        launcherGoogle =
-            registerForActivityResult(
-                ActivityResultContracts.StartActivityForResult()
-            ) { result ->
-
-                if (result.resultCode == RESULT_OK) {
-
-                    val task =
-                        GoogleSignIn.getSignedInAccountFromIntent(
-                            result.data
-                        )
-
-                    try {
-
-                        val cuenta =
-                            task.getResult(
-                                ApiException::class.java
-                            )
-
-                        registrarUsuarioEnBD(
-                            cuenta.email ?: "",
-                            cuenta.displayName ?: "Usuario Google"
-                        )
-
-                    } catch (e: ApiException) {
-
-                        Log.e(
-                            "LOGIN_DEBUG",
-                            "ERROR GOOGLE ${e.statusCode}"
-                        )
-
-                        Toast.makeText(
-                            this,
-                            "Error Google",
-                            Toast.LENGTH_LONG
-                        ).show()
-
-                    }
-
-                }
-
-            }
-
-        setContent {
-
-            when (currentScreen) {
-
-                Screen.LOGIN -> LoginScreen(
-
-                    onGoogleClick = {
-                        loginGoogle()
-                    },
-
-                    onLoginSuccess = { correo, password ->
-                        loginUsuario(
-                            correo,
-                            password
-                        )
-                    },
-
-                    onRegisterClick = {
-                        currentScreen =
-                            Screen.REGISTER
-                    }
-
-                )
-
-                Screen.REGISTER -> RegisterScreen(
-
-                    onRegister = {
-                            nombre,
-                            correo,
-                            password ->
-=======
-        val opciones = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestIdToken("125866495628-q48hj370fifuchns68qg2ul13avn192m.apps.googleusercontent.com")
-            .build()
-
         googleClient = GoogleSignIn.getClient(this, opciones)
 
         launcherGoogle = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
+
             if (result.resultCode == RESULT_OK) {
+
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+
                 try {
                     val cuenta = task.getResult(ApiException::class.java)
-                    registrarUsuarioEnBD(cuenta.email ?: "", cuenta.displayName ?: "Usuario Google")
+
+                    registrarUsuarioEnBD(
+                        cuenta.email ?: "",
+                        cuenta.displayName ?: "Usuario Google"
+                    )
+
                 } catch (e: ApiException) {
-                    Log.e("LOGIN_DEBUG", "ERROR GOOGLE. Código: ${e.statusCode}")
-                    Toast.makeText(this, "Error Google: ${e.statusCode}", Toast.LENGTH_LONG).show()
+
+                    Toast.makeText(
+                        this,
+                        "Error Google: ${e.statusCode}",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    Log.e("LOGIN", "Error Google: ${e.statusCode}")
                 }
             }
         }
 
         setContent {
+
             when (currentScreen) {
+
                 Screen.LOGIN -> LoginScreen(
                     onGoogleClick = { loginGoogle() },
                     onLoginSuccess = { correo, password ->
@@ -197,585 +103,174 @@ class MainActivity : ComponentActivity() {
                         currentScreen = Screen.REGISTER
                     }
                 )
+
                 Screen.REGISTER -> RegisterScreen(
-
                     onRegister = { nombre, correo, password ->
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
-
-                        registrarNuevoUsuario(
-                            nombre,
-                            correo,
-                            password
-                        )
-<<<<<<< HEAD
-
+                        registrarNuevoUsuario(nombre, correo, password)
                     },
-
                     onBack = {
-
-                        currentScreen =
-                            Screen.LOGIN
-
+                        currentScreen = Screen.LOGIN
                     }
-
                 )
 
                 Screen.MENU_PRINCIPAL -> MenuPrincipalScreen(
-
-                    onInicio = {
-
-                        currentScreen =
-                            Screen.MENU_PRINCIPAL
-
-                    },
-
-                    onIngreso = {
-
-                        currentScreen =
-                            Screen.SUBIR_FACTURAS
-
-                    },
-
-                    onBuscar = {
-
-                        currentScreen =
-                            Screen.BUSQUEDA
-
-                    },
-
-                    onCerrarSesion = {
-
-                        currentScreen =
-                            Screen.LOGIN
-
-                    }
-
+                    onInicio = { currentScreen = Screen.MENU_PRINCIPAL },
+                    onIngreso = { currentScreen = Screen.SUBIR_FACTURAS },
+                    onBuscar = { currentScreen = Screen.BUSQUEDA },
+                    onCerrarSesion = { currentScreen = Screen.LOGIN }
                 )
 
                 Screen.SUBIR_FACTURAS -> SubirFacturasScreen(
-
-                    onInicio = {
-
-                        currentScreen =
-                            Screen.MENU_PRINCIPAL
-
-                    },
-
-                    onBuscar = {
-
-                        currentScreen =
-                            Screen.BUSQUEDA
-
-                    },
-
-                    onCerrarSesion = {
-
-                        currentScreen =
-                            Screen.LOGIN
-
-                    }
-
+                    onInicio = { currentScreen = Screen.MENU_PRINCIPAL },
+                    onBuscar = { currentScreen = Screen.BUSQUEDA },
+                    onCerrarSesion = { currentScreen = Screen.LOGIN }
                 )
 
                 Screen.LISTADO -> PantallaListado(
+                    onInicio = { currentScreen = Screen.MENU_PRINCIPAL },
+                    onIngreso = { currentScreen = Screen.SUBIR_FACTURAS },
+                    onBuscar = { currentScreen = Screen.BUSQUEDA },
+                    onCerrarSesion = { currentScreen = Screen.LOGIN },
+                    onFacturaClick = { factura ->
 
-                    onInicio = {
-
-                        currentScreen =
-                            Screen.MENU_PRINCIPAL
-
-                    },
-
-                    onIngreso = {
-
-                        currentScreen =
-                            Screen.SUBIR_FACTURAS
-
-                    },
-
-                    onBuscar = {
-
-                        currentScreen =
-                            Screen.BUSQUEDA
-
-                    },
-
-                    onCerrarSesion = {
-
-                        currentScreen =
-                            Screen.LOGIN
-
-                    },
-
-                    onFacturaClick = {
-
-                        facturaSeleccionada = it
-
-                        currentScreen =
-                            Screen.DETALLE_FACTURA
-
+                        println("Factura: $factura")
                     }
-
                 )
 
                 Screen.BUSQUEDA -> PantallaBusqueda(
+                    onInicio = { currentScreen = Screen.MENU_PRINCIPAL },
+                    onIngreso = { currentScreen = Screen.SUBIR_FACTURAS },
+                    onBuscar = { currentScreen = Screen.BUSQUEDA },
+                    onCerrarSesion = { currentScreen = Screen.LOGIN },
+                    onFacturaClick = { factura ->
 
-                    onInicio = {
-
-                        currentScreen =
-                            Screen.MENU_PRINCIPAL
-
-                    },
-
-                    onIngreso = {
-
-                        currentScreen =
-                            Screen.SUBIR_FACTURAS
-
-                    },
-
-                    onBuscar = {
-
-                        currentScreen =
-                            Screen.BUSQUEDA
-
-                    },
-                    onCerrarSesion = {
-
-                        currentScreen =
-                            Screen.LOGIN
-
-                    },
-
-                    onFacturaClick = {
-
-                        facturaSeleccionada = it
-
-                        currentScreen =
-                            Screen.DETALLE_FACTURA
+                        facturaSeleccionada = factura
+                        currentScreen = Screen.DETALLE_FACTURA
 
                     }
-
                 )
-
                 Screen.DETALLE_FACTURA -> {
 
-                    facturaSeleccionada?.let {
+                    facturaSeleccionada?.let { factura ->
 
                         PantallaDetalleFactura(
-
-                            factura = it,
-
+                            factura = factura,
                             onVolver = {
-
-                                currentScreen =
-                                    Screen.BUSQUEDA
-
+                                currentScreen = Screen.BUSQUEDA
                             }
-
                         )
 
                     }
 
                 }
-
-            }
-
-        }
-
-    }
-
-    private fun loginUsuario(
-        correo: String,
-        password: String
-    ) {
-
-        lifecycleScope.launch {
-
-            try {
-
-                val usuarios =
-                    ClienteApi.servicio
-                        .obtenerUsuarioPorCorreo(
-                            "eq.$correo"
-                        )
-
-                if (usuarios.isEmpty()) {
-
-=======
-                    },
-
-                    onBack = {
-                        currentScreen = Screen.LOGIN
-                    }
-                )
-                Screen.MENU_PRINCIPAL -> MenuPrincipalScreen(
-                    onInicio = {
-                        currentScreen = Screen.MENU_PRINCIPAL
-                    },
-                    onIngreso = {
-                        currentScreen = Screen.SUBIR_FACTURAS
-                    },
-                    onBuscar = {
-                        currentScreen = Screen.BUSQUEDA
-                    },
-                    onCerrarSesion = {
-                        currentScreen = Screen.LOGIN
-                    }
-                )
-                Screen.SUBIR_FACTURAS -> SubirFacturasScreen(
-                    onInicio = {
-                        currentScreen = Screen.MENU_PRINCIPAL
-                    },
-                    onBuscar = {
-                        currentScreen = Screen.BUSQUEDA
-                    },
-                    onCerrarSesion = {
-                        currentScreen = Screen.LOGIN
-                    }
-                )
-                Screen.LISTADO -> PantallaListado(
-                    onInicio = {
-                        currentScreen = Screen.MENU_PRINCIPAL
-                    },
-
-                    onIngreso = {
-                        currentScreen = Screen.SUBIR_FACTURAS
-                    },
-
-                    onBuscar = {
-                        currentScreen = Screen.BUSQUEDA
-                    },
-
-                    onCerrarSesion = {
-                        currentScreen = Screen.LOGIN
-                    }
-                )
-                Screen.BUSQUEDA -> PantallaBusqueda(
-                    onInicio = {
-                        currentScreen = Screen.MENU_PRINCIPAL
-                    },
-                    onIngreso = {
-                        currentScreen = Screen.SUBIR_FACTURAS
-                    },
-                    onBuscar = {
-                        currentScreen = Screen.BUSQUEDA
-                    },
-                    onCerrarSesion = {
-                        currentScreen = Screen.LOGIN
-                    }
-                )
             }
         }
+
     }
 
     private fun loginUsuario(correo: String, password: String) {
-        lifecycleScope.launch {
-            try {
-                val usuarios = ClienteApi.servicio.obtenerUsuarioPorCorreo("eq.$correo")
-                if (usuarios.isEmpty()) {
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
-                    Toast.makeText(
-                        this@MainActivity,
-                        "El usuario no existe",
-                        Toast.LENGTH_SHORT
-                    ).show()
-<<<<<<< HEAD
-
-                    return@launch
-
-                }
-
-                val usuario =
-                    usuarios.first()
-
-                if (usuario.contra == password) {
-
-=======
-                    return@launch
-                }
-                val usuario = usuarios.first()
-                if (usuario.contra == password) {
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Login correcto",
-                        Toast.LENGTH_SHORT
-                    ).show()
-<<<<<<< HEAD
-
-                    currentScreen =
-                        Screen.MENU_PRINCIPAL
-
-                } else {
-
-=======
-                    currentScreen = Screen.MENU_PRINCIPAL
-                } else {
-                // 13 MAYO ---- VALIDACIONES CONTRA
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Contraseña incorrecta",
-                        Toast.LENGTH_SHORT
-                    ).show()
-<<<<<<< HEAD
-
-=======
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
-                }
-
-            } catch (e: Exception) {
-
-<<<<<<< HEAD
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error conexión",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            }
-
-        }
-
-=======
-                Log.e("LOGIN", "Error: ${e.message}")
-
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error de conexión",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
-    }
-
-    private fun registrarNuevoUsuario(
-        nombre: String,
-        correo: String,
-        password: String
-    ) {
-<<<<<<< HEAD
 
         lifecycleScope.launch {
 
             try {
 
                 val usuarios =
-                    ClienteApi.servicio
-                        .obtenerUsuarioPorCorreo(
-                            "eq.$correo"
-                        )
+                    ClienteApi.servicio.obtenerUsuarioPorCorreo("eq.$correo")
+
+                if (usuarios.isEmpty()) {
+                    Toast.makeText(this@MainActivity, "Usuario no existe", Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+
+                val usuario = usuarios.first()
+
+                if (usuario.contra == password) {
+
+                    Toast.makeText(this@MainActivity, "Login correcto", Toast.LENGTH_SHORT).show()
+                    currentScreen = Screen.MENU_PRINCIPAL
+
+                } else {
+
+                    Toast.makeText(this@MainActivity, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
+                }
+
+            } catch (e: Exception) {
+
+                Toast.makeText(this@MainActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
+                Log.e("LOGIN", "Error: ${e.message}")
+            }
+        }
+    }
+
+    private fun registrarNuevoUsuario(nombre: String, correo: String, password: String) {
+
+        lifecycleScope.launch {
+
+            try {
+
+                val usuarios =
+                    ClienteApi.servicio.obtenerUsuarioPorCorreo("eq.$correo")
 
                 if (usuarios.isNotEmpty()) {
-
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Usuario ya existe",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                    Toast.makeText(this@MainActivity, "Usuario ya existe", Toast.LENGTH_SHORT).show()
                     return@launch
-
                 }
 
                 val response =
-                    ClienteApi.servicio
-                        .guardarUsuario(
-
-                            Usuario(
-
-                                nombre = nombre,
-                                correo = correo,
-                                contra = password
-
-                            )
-
-                        )
-
-                if (response.isSuccessful) {
-
-                    currentScreen =
-                        Screen.LOGIN
-
-=======
-        lifecycleScope.launch {
-            try {
-                val usuarios = ClienteApi.servicio
-                    .obtenerUsuarioPorCorreo("eq.$correo")
-                if (usuarios.isNotEmpty()) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "El usuario ya existe",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@launch
-                }
-                val response = ClienteApi.servicio.guardarUsuario(
-                    com.example.factu_smart.data.model.Usuario(
-                        nombre = nombre,
-                        correo = correo,
-                        contra = password
+                    ClienteApi.servicio.guardarUsuario(
+                        Usuario(nombre = nombre, correo = correo, contra = password)
                     )
-                )
+
                 if (response.isSuccessful) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Usuario registrado",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@MainActivity, "Usuario registrado", Toast.LENGTH_SHORT).show()
                     currentScreen = Screen.LOGIN
-                } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Error al registrar",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
+
             } catch (e: Exception) {
 
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error de conexión",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this@MainActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
+                Log.e("REGISTER", "Error: ${e.message}")
             }
         }
     }
 
     private fun registrarUsuarioEnBD(correo: String, nombre: String) {
+
         lifecycleScope.launch {
+
             try {
-                val usuarios = ClienteApi.servicio.obtenerUsuarioPorCorreo("eq.$correo")
-                // SI YA EXISTE SOLO ENTRA
+
+                val usuarios =
+                    ClienteApi.servicio.obtenerUsuarioPorCorreo("eq.$correo")
+
                 if (usuarios.isNotEmpty()) {
                     currentScreen = Screen.MENU_PRINCIPAL
                     return@launch
                 }
-                // SI NO EXISTE LO CREA
-                val response = ClienteApi.servicio.guardarUsuario(
-                    com.example.factu_smart.data.model.Usuario(
+
+                ClienteApi.servicio.guardarUsuario(
+                    Usuario(
                         correo = correo,
                         nombre = nombre,
                         contra = null
                     )
                 )
 
-                if (response.isSuccessful) {
-
-                    currentScreen = Screen.MENU_PRINCIPAL
-
-                } else {
-
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Error al guardar usuario",
-                        Toast.LENGTH_SHORT
-                    ).show()
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
-                }
+                currentScreen = Screen.MENU_PRINCIPAL
 
             } catch (e: Exception) {
 
-<<<<<<< HEAD
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error conexión",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            }
-
-        }
-
-    }
-
-    private fun registrarUsuarioEnBD(
-        correo: String,
-        nombre: String
-    ) {
-
-        lifecycleScope.launch {
-
-            try {
-
-                val usuarios =
-                    ClienteApi.servicio
-                        .obtenerUsuarioPorCorreo(
-                            "eq.$correo"
-                        )
-
-                if (usuarios.isNotEmpty()) {
-
-                    currentScreen =
-                        Screen.MENU_PRINCIPAL
-
-                    return@launch
-
-                }
-
-                ClienteApi.servicio
-                    .guardarUsuario(
-
-                        Usuario(
-
-                            correo = correo,
-                            nombre = nombre,
-                            contra = null
-
-                        )
-
-                    )
-
-                currentScreen =
-                    Screen.MENU_PRINCIPAL
-
-            } catch (e: Exception) {
-
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error conexión",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            }
-
-        }
-
-    }
-
-    fun loginGoogle() {
-
-        googleClient
-            .signOut()
-            .addOnCompleteListener {
-
-                launcherGoogle.launch(
-                    googleClient.signInIntent
-                )
-
-            }
-
-    }
-
-}
-=======
-                Log.e("SUPABASE", "Error: ${e.message}")
-
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error de conexión",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this@MainActivity, "Error de conexión", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     fun loginGoogle() {
+
+        Log.d("GOOGLE", "Boton Google presionado")
+
         googleClient.signOut().addOnCompleteListener {
             launcherGoogle.launch(googleClient.signInIntent)
         }
     }
 }
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd

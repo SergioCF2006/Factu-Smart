@@ -7,27 +7,37 @@ import retrofit2.http.*
 
 interface ServicioApi {
 
-    @GET("facturas")
-    suspend fun obtenerFacturas(): List<Factura>
-
+    @Headers(
+        "Content-Type: application/json",
+        "Prefer: return=minimal"
+    )
     @POST("facturas")
-<<<<<<< HEAD
     suspend fun guardarFactura(
         @Body factura: Factura
-    ): Response<Unit>
+    ): retrofit2.Response<Void>
+
+    @GET("facturas")
+    suspend fun obtenerFacturas(): List<Factura>
 
     @GET("facturas")
     suspend fun verificarFacturaDuplicada(
         @Query("serie") serie: String,
         @Query("numero_documento") numero: String
     ): List<Factura>
-=======
-    suspend fun guardarFactura(@Body factura: Factura): Response<Unit>
->>>>>>> dfff2d5dcfcde442d00320649f823315317656dd
 
-    @Headers("Prefer: resolution=merge-duplicates")
+    @Headers(
+        "Content-Type: application/json",
+        "Prefer: resolution=merge-duplicates"
+    )
     @POST("usuarios")
-    suspend fun guardarUsuario(@Body usuario: Usuario): Response<Unit>
+    suspend fun guardarUsuario(
+        @Body usuario: Usuario
+    ): retrofit2.Response<Void>
+
+    @GET("facturas")
+    suspend fun buscarFacturaPorAutorizacion(
+        @Query("numero_autorizacion") autorizacion: String
+    ): List<Factura>
 
     @GET("usuarios")
     suspend fun obtenerUsuarioPorCorreo(

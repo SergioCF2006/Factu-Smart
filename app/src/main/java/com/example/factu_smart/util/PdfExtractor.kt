@@ -235,7 +235,9 @@ object PdfExtractor {
 
                 monto_iva = montoTotal * 0.12,
 
-                descripcion = "Factura FEL"
+                descripcion = "Factura FEL",
+
+                ruta_pdf = uri.toString()
 
             )
 
